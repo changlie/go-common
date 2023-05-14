@@ -1,6 +1,7 @@
 package dt
 
 import (
+	"fmt"
 	"strings"
 	"time"
 )
@@ -70,24 +71,46 @@ func (receiver *DateTime) ResetSecond() *DateTime {
 }
 
 func (receiver *DateTime) SetYear(years int) *DateTime {
+	if years < 0 {
+		panic(fmt.Sprintf("invalid years: %v", years))
+	}
 	return &DateTime{raw: receiver.raw.AddDate(-receiver.raw.Year()+years, 0, 0)}
 }
 func (receiver *DateTime) SetMonth(months int) *DateTime {
+	if months < 1 || months > 12 {
+		panic(fmt.Sprintf("invalid months: %v", months))
+	}
 	return &DateTime{raw: receiver.raw.AddDate(0, -int(receiver.raw.Month())+months, 0)}
 }
 func (receiver *DateTime) SetDay(days int) *DateTime {
-	return &DateTime{raw: receiver.raw.AddDate(0, 0, -receiver.raw.Day()+days)}
+	if days < 1 {
+		panic(fmt.Sprintf("invalid days: %v", days))
+	}
+	oldMonth := receiver.raw.Month()
+	newDateTime := receiver.raw.AddDate(0, 0, -receiver.raw.Day()+days)
+	if oldMonth < newDateTime.Month() {
+		panic(fmt.Sprintf("invalid days: %v", days))
+	}
+	return &DateTime{raw: newDateTime}
 }
 func (receiver *DateTime) SetHour(hours int) *DateTime {
+	if hours < 0 || hours > 23 {
+		panic(fmt.Sprintf("invalid hours: %v", hours))
+	}
 	return &DateTime{raw: receiver.raw.Add(-time.Duration(receiver.raw.Hour())*time.Hour + time.Duration(hours)*time.Hour)}
 }
 func (receiver *DateTime) SetMinute(minutes int) *DateTime {
+	if minutes < 0 || minutes > 59 {
+		panic(fmt.Sprintf("invalid minutes: %v", minutes))
+	}
 	return &DateTime{raw: receiver.raw.Add(-time.Duration(receiver.raw.Hour())*time.Hour + time.Duration(minutes)*time.Hour)}
 }
 func (receiver *DateTime) SetSecond(seconds int) *DateTime {
+	if seconds < 0 || seconds > 59 {
+		panic(fmt.Sprintf("invalid seconds: %v", seconds))
+	}
 	return &DateTime{raw: receiver.raw.Add(-time.Duration(receiver.raw.Second())*time.Second + time.Duration(seconds)*time.Second)}
 }
-
 func (receiver *DateTime) Year() int {
 	return receiver.raw.Year()
 }
