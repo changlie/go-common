@@ -6,6 +6,11 @@ import (
 	"time"
 )
 
+func Test_d2(t *testing.T) {
+	fmt.Println(time.Now().Format(DTFORMAT))
+	fmt.Println(time.Now().Add(time.Minute * 5).Format(DTFORMAT))
+	fmt.Println(time.Now().Add(time.Minute * -17).Format(DTFORMAT))
+}
 func Test_d1(t *testing.T) {
 	fmt.Println(time.Now().Format(DTFORMAT))
 	fmt.Println(time.Now().Format(DFORMAT))
@@ -24,4 +29,5 @@ func Test_d1(t *testing.T) {
 	fmt.Println("Now().Weekday()", Now().Weekday())
 	fmt.Println("Now().Weekday()", Now().AddDay(1).Weekday())
 	fmt.Println("Now().Weekday()", Now().AddDay(2).Weekday())
+
 }
