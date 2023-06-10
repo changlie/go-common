@@ -1,6 +1,7 @@
 package a
 
 import (
+	"reflect"
 	"testing"
 )
 
@@ -41,4 +42,11 @@ func TestNumberToStr(t *testing.T) {
 	Echo(FloatStr(9.687777777777777777777777))
 	Echo(FloatStr(9.687777777777777777777777, 2))
 	Echo(FloatStr(9.687777777777777777777777, 3))
+}
+
+func TestStrToNumber(t *testing.T) {
+	r1 := StrToInt("10087")
+	Echo(r1, reflect.TypeOf(r1))
+	r2 := StrToInt("123456789")
+	Echo(r2, reflect.TypeOf(r2))
 }
