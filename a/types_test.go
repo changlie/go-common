@@ -5,12 +5,12 @@ import (
 )
 
 type Users struct {
-	Id           int      `json:"id"`
-	Name         string   `json:"name"`
-	Age          int      `json:"age"`
-	Score        []int    `json:"score"`
-	RoleCodeList []string `json:"roleCodeList"`
-	UserAlias    string   `json:"userAlias"`
+	Id           int      `json:"id,omitempty" form:"id"`
+	Name         string   `json:"name,omitempty" form:"name"`
+	Age          int      `json:"age,omitempty" form:"age"`
+	Score        []int    `json:"score,omitempty" form:"score"`
+	RoleCodeList []string `json:"roleCodeList,omitempty" form:"roleCodeList"`
+	UserAlias    string   `json:"userAlias,omitempty" form:"userAlias"`
 }
 
 func Test_MapList(t *testing.T) {
@@ -31,7 +31,7 @@ func Test_MapList(t *testing.T) {
 	FromJson(blob, &arr)
 	Echo(len(arr), arr[3], Json(arr))
 
-	ustr := `{"id":9, "name":"tom", "age":17, "score":[59,71,62]}`
+	ustr := `{"id":7,"name":"tom", "score":[59,71,62], "roleCodeList":["a","1"]}`
 	var u Users
 	FromJson(ustr, &u)
 	Echo(u.Name, Json(u))

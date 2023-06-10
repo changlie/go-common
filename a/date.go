@@ -54,7 +54,10 @@ func (receiver *DateTime) Format(layout string) string {
 }
 
 func (receiver *DateTime) String() string {
-	return receiver.raw.String()
+	return receiver.raw.Format(DTFORMAT)
+}
+func (receiver *DateTime) DateStr() string {
+	return receiver.raw.Format(DFORMAT)
 }
 
 func (receiver *DateTime) ResetDay() *DateTime {
