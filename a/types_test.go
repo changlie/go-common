@@ -36,3 +36,9 @@ func Test_MapList(t *testing.T) {
 	FromJson(ustr, &u)
 	Echo(u.Name, Json(u))
 }
+
+func TestNumberToStr(t *testing.T) {
+	Echo(FloatStr(9.687777777777777777777777))
+	Echo(FloatStr(9.687777777777777777777777, 2))
+	Echo(FloatStr(9.687777777777777777777777, 3))
+}
