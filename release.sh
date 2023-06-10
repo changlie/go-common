@@ -1,9 +1,11 @@
 
+set -x
+
 ci "type conversion"
 
 git push
 
-newVersion=`newVersion`
+newVersion=`nextVersion`
 
 git tag -a $newVersion -m "release $newVersion"
 git push --tags
