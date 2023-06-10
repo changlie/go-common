@@ -33,13 +33,3 @@ jobs:
         env:
           # 提供访问仓库token
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-    permissions:
-      contents: write
-      steps:
-        - uses: actions/checkout@v2
-        - uses: ncipollo/release-action@v1
-          with:
-            artifacts: "fox.md"
-            bodyFile: "body.md"
-            token: ${{ secrets.RELEASE_TOKEN }}
-
