@@ -24,3 +24,11 @@ func TestConsoleColor(t *testing.T) {
 	color.Magenta("And many others ..")
 
 }
+
+func TestExec(t *testing.T) {
+	res := Exec("ls /home/gx")
+	Echo(res)
+	Echo(Exec("pwd"))
+	Echo(Exec("cd /home/gx/repo/go-project/go-common && git tag"))
+
+}
