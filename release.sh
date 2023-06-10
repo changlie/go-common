@@ -1,5 +1,5 @@
 
-set -x
+set -xe
 
 ci "type conversion"
 
