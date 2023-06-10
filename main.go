@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	fmt.Println("hello world! v9")
+	fmt.Println("hello world! fast")
 
 	color.Blue("Prints %s in blue.", "text")
 }
