@@ -90,6 +90,9 @@ type HttpServer struct {
 	raw  *gin.Engine
 }
 
+func HttpServerDefault() *HttpServer {
+	return &HttpServer{port: 8989, raw: gin.Default()}
+}
 func HttpServerNew(port int) *HttpServer {
 	return &HttpServer{port: port, raw: gin.Default()}
 }

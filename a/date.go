@@ -13,7 +13,7 @@ type DateTime struct {
 	raw time.Time
 }
 
-func Fmt(raw string) string {
+func fmtTemplate(raw string) string {
 	var tmp string
 	tmp = strings.Replace(raw, "y", "2006", 1)
 	tmp = strings.Replace(tmp, "M", "01", 1)
@@ -22,6 +22,10 @@ func Fmt(raw string) string {
 	tmp = strings.Replace(tmp, "m", "04", 1)
 	tmp = strings.Replace(tmp, "s", "05", 1)
 	return tmp
+}
+
+func NewDateTime() *DateTime {
+	return &DateTime{raw: time.Now()}
 }
 
 func Now() *DateTime {
@@ -45,12 +49,22 @@ func (receiver *DateTime) AddMonth(months int) *DateTime {
 func (receiver *DateTime) AddDay(days int) *DateTime {
 	return &DateTime{raw: receiver.raw.AddDate(0, 0, days)}
 }
+func (receiver *DateTime) AddHour(hours int) *DateTime {
+	return &DateTime{raw: receiver.raw.Add(time.Hour * time.Duration(hours))}
+}
+func (receiver *DateTime) AddMinute(minutes int) *DateTime {
+	return &DateTime{raw: receiver.raw.Add(time.Minute * time.Duration(minutes))}
+}
+func (receiver *DateTime) AddSecond(seconds int) *DateTime {
+	return &DateTime{raw: receiver.raw.Add(time.Second * time.Duration(seconds))}
+}
+
 func (receiver *DateTime) Add(d time.Duration) *DateTime {
 	return &DateTime{raw: receiver.raw.Add(d)}
 }
 
 func (receiver *DateTime) Format(layout string) string {
-	return receiver.raw.Format(layout)
+	return receiver.raw.Format(fmtTemplate(layout))
 }
 
 func (receiver *DateTime) String() string {

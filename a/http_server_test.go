@@ -22,7 +22,7 @@ func Fox(c Ctx) {
 }
 
 func Test_simple(t *testing.T) {
-	srv := HttpServerNew()
+	srv := HttpServerDefault()
 	srv.Post("/fox", Fox)
 	srv.Get("/tt", Tget)
 	srv.Start()
