@@ -1,4 +1,4 @@
-package a
+package files
 
 import (
 	"bufio"
