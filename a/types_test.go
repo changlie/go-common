@@ -1,6 +1,7 @@
 package a
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 )
@@ -49,4 +50,14 @@ func TestStrToNumber(t *testing.T) {
 	Echo(r1, reflect.TypeOf(r1))
 	r2 := StrToInt("123456789")
 	Echo(r2, reflect.TypeOf(r2))
+}
+
+func Test_Set(t *testing.T) {
+	set := NewSet("a", "C", "D", false, 998)
+	set.Each(func(a any) {
+		fmt.Println("item -> ", a)
+	})
+	Echo(set.Contains("A"))
+	Echo(set.Contains("a"))
+	Echo(set.Contains(998))
 }

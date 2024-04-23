@@ -11,6 +11,13 @@ type M = map[string]any
 type List = []any
 type L = []any
 
+type Void struct{}
+
+var empty Void
+
+type Set map[any]Void
+type Consumer func(any)
+
 func StrToInt(raw string) int {
 	res, err := strconv.Atoi(raw)
 	if err != nil {
@@ -58,4 +65,38 @@ func Float32Str(raw float32, precision ...int) string {
 }
 func BoolStr(raw bool) string {
 	return fmt.Sprintf("%v", raw)
+}
+
+func NewSet(items ...any) Set {
+	var res Set = make(map[any]Void)
+	for _, item := range items {
+		res.Add(item)
+	}
+	return res
+}
+
+func (s *Set) Add(item any) {
+	(*s)[item] = empty
+}
+func (s *Set) Contains(item any) bool {
+	_, ok := (*s)[item]
+	return ok
+}
+
+func (s *Set) Del(item any) {
+	delete(*s, item)
+}
+
+func (s *Set) Each(acceptor Consumer) {
+	for k := range *s {
+		acceptor(k)
+	}
+}
+
+func (s *Set) ToArr() []any {
+	var res []any
+	for k := range *s {
+		res = append(res, k)
+	}
+	return res
 }
