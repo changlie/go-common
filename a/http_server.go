@@ -151,6 +151,8 @@ func (receiver *HttpServer) Any(relativePath string, handler HttpHandler) gin.IR
 }
 
 func (receiver *HttpServer) Start() {
+	gin.SetMode(gin.ReleaseMode)
+	log.Printf("http://localhost:%v/\n", receiver.port)
 	err := receiver.raw.Run(fmt.Sprintf(":%v", receiver.port))
 	if err != nil {
 		log.Println(err)
