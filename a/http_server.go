@@ -11,6 +11,9 @@ type Ctx interface {
 	Ok(obj ...any) Ctx
 	Status(status int) Ctx
 	JsonBody(obj any)
+	GetQuery(key string) string
+	GetQueryArray(key string) []string
+	PathVar(key string) string
 	JsonArgs(obj any)
 	QueryArgs(obj any)
 	Headers(obj any)
@@ -18,6 +21,7 @@ type Ctx interface {
 	GetHeader(key string) string
 	HeaderMap() http.Header
 	BindArgs(obj any)
+	Redirect(location string)
 }
 
 type ctxImpl struct {
@@ -56,6 +60,9 @@ func (receiver *ctxImpl) QueryArgs(obj any) {
 	if err != nil {
 		panic(err)
 	}
+}
+func (receiver *ctxImpl) PathVar(key string) string {
+	return receiver.raw.Param(key)
 }
 func (receiver *ctxImpl) HeaderMap() http.Header {
 	return receiver.raw.Request.Header
