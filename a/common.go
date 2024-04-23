@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"github.com/google/uuid"
 	"golang.org/x/text/encoding/simplifiedchinese"
+	"os"
 	"os/exec"
+	"path/filepath"
 	"runtime"
 	"strings"
 )
@@ -18,6 +20,15 @@ func UuidV4() string {
 	// V4 基于随机数
 	u4 := uuid.New()
 	return u4.String()
+}
+
+func ProgramDir() string {
+	if executable, err := os.Executable(); err == nil {
+		return filepath.Dir(executable)
+	} else {
+		panic(err)
+		return ""
+	}
 }
 
 func Exec(command string) string {

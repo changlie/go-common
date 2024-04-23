@@ -90,12 +90,8 @@ type HttpServer struct {
 	raw  *gin.Engine
 }
 
-func HttpServerNew(port ...int) *HttpServer {
-	_port := 8080
-	if len(port) > 0 {
-		_port = port[0]
-	}
-	return &HttpServer{port: _port, raw: gin.Default()}
+func HttpServerNew(port int) *HttpServer {
+	return &HttpServer{port: port, raw: gin.Default()}
 }
 
 func generateHandler(handler HttpHandler) gin.HandlerFunc {
