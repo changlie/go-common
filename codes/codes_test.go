@@ -1,4 +1,4 @@
-package a
+package codes
 
 import (
 	"encoding/hex"
