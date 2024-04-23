@@ -14,8 +14,14 @@ func Json(raw any) string {
 	return string(bytes)
 }
 
-func JsonOf(raw string) *Kson {
-	newJson, err := simplejson.NewJson([]byte(raw))
+func JsonOf(raw any) *Kson {
+	var str string
+	if tmp, ok := raw.(string); ok {
+		str = tmp
+	} else {
+		str = Json(raw)
+	}
+	newJson, err := simplejson.NewJson([]byte(str))
 	if err != nil {
 		log.Println(err)
 		return nil

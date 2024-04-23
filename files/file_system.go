@@ -33,6 +33,29 @@ func FileList(rawPath string) []*FileInfo {
 	return res
 }
 
+func FileList2(rawPath string) []*FileInfo2 {
+	entries, err := os.ReadDir(rawPath)
+	if err != nil {
+		panic(err)
+	}
+	var res []*FileInfo2
+	for _, entry := range entries {
+		res = append(res, &FileInfo2{
+			Dir:    entry.IsDir(),
+			Parent: rawPath,
+			Name:   entry.Name(),
+			Path:   filepath.Join(rawPath, entry.Name()),
+		})
+	}
+	return res
+}
+
+type FileInfo2 struct {
+	Dir    bool   `json:"dir"`
+	Parent string `json:"parent"`
+	Name   string `json:"name"`
+	Path   string `json:"path"`
+}
 type FileInfo struct {
 	baseDir string
 	raw     os.DirEntry
@@ -44,6 +67,12 @@ func NewFileInfo(base string, rawFileInfo os.DirEntry) *FileInfo {
 
 func (receiver *FileInfo) Path() string {
 	return filepath.Join(receiver.baseDir, receiver.raw.Name())
+}
+func (receiver *FileInfo) Name() string {
+	return receiver.raw.Name()
+}
+func (receiver *FileInfo) Dir() string {
+	return receiver.baseDir
 }
 
 func (receiver *FileInfo) IsDir() bool {
