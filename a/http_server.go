@@ -67,7 +67,6 @@ func (receiver *ctxImpl) GetHeader(key string) string {
 	return receiver.raw.GetHeader(key)
 }
 func (receiver *ctxImpl) Headers(obj any) {
-
 	err := receiver.raw.ShouldBindHeader(obj)
 	if err != nil {
 		panic(err)
@@ -81,6 +80,9 @@ func (receiver *ctxImpl) BindArgs(obj any) {
 }
 func (receiver *ctxImpl) JsonBody(obj any) {
 	receiver.raw.JSON(receiver.status, obj)
+}
+func (receiver *ctxImpl) Redirect(location string) {
+	receiver.raw.Redirect(http.StatusFound, location)
 }
 
 type HttpHandler func(Ctx)
@@ -104,6 +106,9 @@ func generateHandler(handler HttpHandler) gin.HandlerFunc {
 	}
 }
 
+func (receiver *HttpServer) Static(relativePath, root string) gin.IRoutes {
+	return receiver.raw.Static(relativePath, root)
+}
 func (receiver *HttpServer) Post(relativePath string, handler HttpHandler) gin.IRoutes {
 	return receiver.raw.POST(relativePath, generateHandler(handler))
 }
