@@ -21,6 +21,22 @@ func Mkdir(rawPath string) {
 	}
 }
 
+func Exists(filename string) bool {
+	_, err := os.Stat(filename)
+	if os.IsNotExist(err) {
+		return false
+	}
+	return true
+}
+
+func IsDir(rawPath string) bool {
+	stat, err := os.Stat(rawPath)
+	if err != nil {
+		return false
+	}
+	return stat.IsDir()
+}
+
 func FileList(rawPath string) []*FileInfo {
 	entries, err := os.ReadDir(rawPath)
 	if err != nil {
