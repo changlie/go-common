@@ -14,6 +14,10 @@ func Json(raw any) string {
 	return string(bytes)
 }
 
+func JsonPretty(raw any) string {
+	return JsonOf(raw).EncodePretty()
+}
+
 func JsonOf(raw any) *Kson {
 	var str string
 	if tmp, ok := raw.(string); ok {

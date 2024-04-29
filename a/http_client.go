@@ -1,17 +1,24 @@
 package a
 
 import (
+	"crypto/tls"
 	"github.com/go-resty/resty/v2"
 	"log"
+	"time"
 )
 
 var httpRestyClient *resty.Client
 
 func httpClient() *resty.Client {
 	if httpRestyClient == nil {
-		httpRestyClient = resty.New()
+		httpRestyClient = resty.New().EnableTrace()
+		httpRestyClient.SetTLSClientConfig(&tls.Config{InsecureSkipVerify: false})
+		httpRestyClient.SetTimeout(5 * time.Minute)
 	}
 	return httpRestyClient
+}
+func httpRequest() *resty.Request {
+	return httpClient().R()
 }
 
 func HttpGet(url string) []byte {
