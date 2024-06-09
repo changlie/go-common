@@ -17,7 +17,7 @@ func HttpClient() *resty.Client {
 	}
 	return httpRestyClient
 }
-func httpRequest() *resty.Request {
+func HttpRequest() *resty.Request {
 	return HttpClient().R()
 }
 
