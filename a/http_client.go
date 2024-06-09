@@ -9,7 +9,7 @@ import (
 
 var httpRestyClient *resty.Client
 
-func httpClient() *resty.Client {
+func HttpClient() *resty.Client {
 	if httpRestyClient == nil {
 		httpRestyClient = resty.New().EnableTrace()
 		httpRestyClient.SetTLSClientConfig(&tls.Config{InsecureSkipVerify: false})
@@ -18,11 +18,11 @@ func httpClient() *resty.Client {
 	return httpRestyClient
 }
 func httpRequest() *resty.Request {
-	return httpClient().R()
+	return HttpClient().R()
 }
 
 func HttpGet(url string) []byte {
-	resp, err := httpClient().R().EnableTrace().Get(url)
+	resp, err := HttpClient().R().EnableTrace().Get(url)
 	if err != nil {
 		log.Println(err)
 		return nil
